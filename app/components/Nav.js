@@ -16,15 +16,15 @@ function Nav () {
 			<li>
 				<NavLink
 					activeClassName='active'
-					to='/battle'>
-					Battle
+					to='/diary'>
+					Diary
 				</NavLink>
 			</li>
 			<li>
 				<NavLink
 					activeClassName='active'
-					to='/popular'>
-					Popular
+					to='/entry'>
+					Entry
 				</NavLink>
 			</li>
 		</ul>
