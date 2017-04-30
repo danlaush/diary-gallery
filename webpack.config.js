@@ -8,10 +8,23 @@ module.exports = {
 		filename: 'index_bundle.js',
 		publicPath: '/'
 	},
+	resolve: {
+        extensions: ['.js', '.jsx', '.json']
+    },
 	module: {
 		rules: [
-			{ test: /\.(js)$/, use: 'babel-loader' },
-			{ test: /\.css$/, use: ['style-loader', 'css-loader'] }
+			{ 
+				test: /\.(js)$/, 
+				use: 'babel-loader' 
+			},
+			{ 
+				test: /\.css$/, 
+				use: ['style-loader', 'css-loader'] 
+			},
+			{
+                test: /\.json$/,
+                loader: 'json-loader'
+            }
 		]
 	},
 	devServer: {

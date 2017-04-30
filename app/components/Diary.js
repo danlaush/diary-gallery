@@ -1,6 +1,7 @@
 var React = require('react');
 var PropTypes = require('prop-types');
 var Link = require('react-router-dom').Link;
+var year1940 = require('../data/1940');
 
 // class PlayerInput extends React.Component {
 // 	constructor(props) {
@@ -95,28 +96,20 @@ class Diary extends React.Component {
 	}
 
 	render() {
-		var match = this.props.match;
-		var playerOneName = this.state.playerOneName;
-		var playerTwoName = this.state.playerTwoName;
-		var playerOneImage = this.state.playerOneImage;
-		var playerTwoImage = this.state.playerTwoImage;
+		var year1940obj = JSON.parse(year1940);
 		return(
 			<div>
 
 				<div className='row'>
 					Diary component
 				</div>
-
-				{playerOneImage && playerTwoImage &&
-					<Link
-						className='button button--feature'
-						to={{
-							pathname: match.url + '/results',
-							search: `?playerOneName=` + playerOneName + '&playerTwoName=' + playerTwoName
-						}}						
-					>Battle!</Link>
-				}
-
+				{JSON.stringify(year1940, null, 2)}
+				{year1940obj.map((month) => {
+					return(
+						// <p>{JSON.stringify(a, null, 2)}</p>
+						{month}
+					);
+				})}
 			</div>
 		)
 	}
