@@ -1,5 +1,6 @@
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
 	entry: './app/index.js',
@@ -8,9 +9,6 @@ module.exports = {
 		filename: 'index_bundle.js',
 		publicPath: '/'
 	},
-	resolve: {
-        extensions: ['.js', '.jsx', '.json']
-    },
 	module: {
 		rules: [
 			{ 
@@ -20,17 +18,26 @@ module.exports = {
 			{ 
 				test: /\.css$/, 
 				use: ['style-loader', 'css-loader'] 
-			},
-			{
-                test: /\.json$/,
-                loader: 'json-loader'
-            }
+			}
 		]
 	},
+	devtool: 'source-map',
 	devServer: {
 		historyApiFallback: true
 	},
-	plugins: [new HtmlWebpackPlugin({
-		template: './app/index.html'
-	})]
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: './app/index.html'
+		}),
+		new CopyWebpackPlugin([
+			{
+				from: './app/data',
+				to: 'data'
+			},
+			{
+				from: './public',
+				to: 'assets'
+			}
+		])
+	]
 }

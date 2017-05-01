@@ -1,7 +1,121 @@
 var React = require('react');
 var PropTypes = require('prop-types');
 var Link = require('react-router-dom').Link;
-var year1940 = require('../data/1940');
+var api = require('../utils/api.js');
+import '../utils/dateExtend';
+
+class Diary extends React.Component {
+	constructor(props) {
+		super(props);
+		// this.state = {
+		// 	playerOneName: '',
+		// 	playerTwoName: '',
+		// 	playerOneImage: null,
+		// 	playerTwoImage: null
+		// }
+		this.state = { 
+			year: 1943,
+			yearData: {
+				"01": {
+					"01": "Lorem ipsum dolor"
+				}
+			}
+		};
+
+		// this.handleSubmit = this.handleSubmit.bind(this);
+		// this.handleReset = this.handleReset.bind(this);
+	}
+
+	componentDidMount(props) {
+		api.getDiaryEntries(this.props.year)
+			.then((yearData) => {
+				this.setState(function() {
+					return {
+						yearData: yearData
+					}
+				})
+			});
+	}
+
+	handleSubmit(id, username) {
+
+		// this.setState(function() {
+		// 	var newState = {};
+		// 	newState[id + 'Name'] = username;
+		// 	newState[id + 'Image'] = 'https://github.com/' + username + '.png?size=200';
+		// 	return newState;
+		// });
+	}
+
+	handleReset(id) {
+		// this.setState(function() {
+		// 	var newState = {};
+		// 	newState[id + 'Name'] = '';
+		// 	newState[id + 'Image'] = null;
+		// 	return newState;
+		// });
+	}
+
+	render() {
+		return(
+			<div className="container">
+
+				<div className='row'>
+					<h1>{this.state.year}</h1>
+					<YearSelector />
+				</div>
+				{Object.keys(this.state.yearData).map((month, index) => {
+					return(
+						<div key={index}>
+							<h2>{Date.prototype.monthNames[parseInt(month)]}</h2>
+							
+							<div className='year'>
+							{Object.keys(this.state.yearData[month]).map((date, index2) => {
+									return(
+										<div key={index2} className='list__entry'>
+											<div className='list__entry-text'><span><strong>{date}:</strong> {this.state.yearData[month][date]}</span></div>
+											<div className='list__entry-image'>
+												<img src={'/assets/jpg/01/'+month+'/'+date+ '.jpg'} />
+											</div>
+										</div>
+									);
+								})}
+							</div>
+						</div>
+					);
+				})}
+			</div>
+		)
+	}
+}
+
+module.exports = Diary;
+
+function YearSelector(props) {
+	return(
+		<select>
+			{props.years.map((year) => {
+				return <option key={year} value={year}>{year}</option>
+			})}
+		</select>
+	)
+}
+
+YearSelector.PropTypes = {
+	years: PropTypes.array.isRequired
+}
+
+YearSelector.defaultProps = {
+	years: [1940, 1942, 1943, 1944]
+}
+
+// {Object.keys(days).map((text, day) => {
+// 									return(
+// 										<li key={day}>
+// 											{text}
+// 										</li>
+// 									);
+// 								})}
 
 // class PlayerInput extends React.Component {
 // 	constructor(props) {
@@ -61,58 +175,3 @@ var year1940 = require('../data/1940');
 // 	label: PropTypes.string.isRequired,
 // 	onSubmit: PropTypes.func.isRequired
 // };
-
-class Diary extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			playerOneName: '',
-			playerTwoName: '',
-			playerOneImage: null,
-			playerTwoImage: null
-		}
-
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleReset = this.handleReset.bind(this);
-	}
-
-	handleSubmit(id, username) {
-
-		this.setState(function() {
-			var newState = {};
-			newState[id + 'Name'] = username;
-			newState[id + 'Image'] = 'https://github.com/' + username + '.png?size=200';
-			return newState;
-		});
-	}
-
-	handleReset(id) {
-		this.setState(function() {
-			var newState = {};
-			newState[id + 'Name'] = '';
-			newState[id + 'Image'] = null;
-			return newState;
-		});
-	}
-
-	render() {
-		var year1940obj = JSON.parse(year1940);
-		return(
-			<div>
-
-				<div className='row'>
-					Diary component
-				</div>
-				{JSON.stringify(year1940, null, 2)}
-				{year1940obj.map((month) => {
-					return(
-						// <p>{JSON.stringify(a, null, 2)}</p>
-						{month}
-					);
-				})}
-			</div>
-		)
-	}
-}
-
-module.exports = Diary;

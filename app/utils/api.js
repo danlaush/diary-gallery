@@ -1,79 +1,17 @@
 var axios = require('axios');
+var years = [1940,1941,1942,1943];
+		
+var dataUris = years.map((year, index) => {
+	return window.encodeURI('/data/'+year+'.json');
+});
 
-var id = 'YOUR_CLIENT';
-var secret = 'YOUR_SECRET_ID';
-var params = '?client_id=' + id + '&client_secret=' + secret;
+var Api = {
+	getDiaryEntries: function(requestYear) {
 
-function getProfile(username) {
-	return axios
-		.get('https://api.github.com/users/' + username + params)
-		.then(function(user) {
-			return user.data;
-		});
-}
-
-// getProfile('danlaush')
-// 	.then(function(data) {
-
-// 	})
-
-function getRepos(username) {
-	return axios
-		.get('https://api.github.com/users/' + username + '/repos' + params + '&per_page=100')
-		.then(function(repos) {
-			return repos.data;
-		})
-}
-
-function getStarCount(repos) {
-	return repos.reduce(function(count, repo) {
-		return count + repo.stargazers_count;
-	}, 0); // initialValue = 0
-}
-
-function calculateScore(profile, repos) {
-	var followers = profile.followers;
-	var totalStars = getStarCount(repos);
-
-	return (followers * 3) + totalStars;
-}
-
-function handleError(error) {
-	console.warn(error);
-	return null;
-}
-
-function getUserData (player) {
-	return axios.all([
-		getProfile(player),
-		getRepos(player)
-	]).then(function (data) {
-		var profile = data[0];
-		var repos = data[1];
-
-		return {
-			getProfile: profile,
-			score: calculateScore(profile, repos)
-		}
-	});
-}
-
-function sortPlayers(players) {
-	return players.sort(function (a,b) {
-		return b.score - a.score;
-	});
-}
-
-// api.battle(['danlaush', 'adamweyant'])
-// 	.then(function(players) {
-// 		players[0] = winner;// structure = {getProfile, score}
-// 		players[1] = loser;
-// 	})
-
-module.exports = {
-	battle: function(players) {
-		return axios.all(players.map(getUserData))
-			.then(sortPlayers)
+		return axios.get(dataUris[0])
+			.then((response) => {
+				return response.data;
+			})
 			.catch(handleError);
 	},
 	fetchPopularRepos: function(language) {
@@ -86,3 +24,71 @@ module.exports = {
 			});
 	}
 }
+
+module.exports = Api;
+
+function handleError(error) {
+	console.warn(error);
+	return null;
+}
+
+// function getProfile(username) {
+// 	return axios
+// 		.get('https://api.github.com/users/' + username + params)
+// 		.then(function(user) {
+// 			return user.data;
+// 		});
+// }
+
+// getProfile('danlaush')
+// 	.then(function(data) {
+
+// 	})
+
+// function getRepos(username) {
+// 	return axios
+// 		.get('https://api.github.com/users/' + username + '/repos' + params + '&per_page=100')
+// 		.then(function(repos) {
+// 			return repos.data;
+// 		})
+// }
+
+// function getStarCount(repos) {
+// 	return repos.reduce(function(count, repo) {
+// 		return count + repo.stargazers_count;
+// 	}, 0); // initialValue = 0
+// }
+
+// function calculateScore(profile, repos) {
+// 	var followers = profile.followers;
+// 	var totalStars = getStarCount(repos);
+
+// 	return (followers * 3) + totalStars;
+// }
+
+// function getUserData (player) {
+// 	return axios.all([
+// 		getProfile(player),
+// 		getRepos(player)
+// 	]).then(function (data) {
+// 		var profile = data[0];
+// 		var repos = data[1];
+
+// 		return {
+// 			getProfile: profile,
+// 			score: calculateScore(profile, repos)
+// 		}
+// 	});
+// }
+
+// function sortPlayers(players) {
+// 	return players.sort(function (a,b) {
+// 		return b.score - a.score;
+// 	});
+// }
+
+// api.battle(['danlaush', 'adamweyant'])
+// 	.then(function(players) {
+// 		players[0] = winner;// structure = {getProfile, score}
+// 		players[1] = loser;
+// 	})
