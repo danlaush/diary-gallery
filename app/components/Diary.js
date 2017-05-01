@@ -14,7 +14,8 @@ class Diary extends React.Component {
 		// 	playerTwoImage: null
 		// }
 		this.state = { 
-			year: 1943,
+			years: props.years,
+			year: props.years[0],
 			yearData: {
 				"01": {
 					"01": "Lorem ipsum dolor"
@@ -24,10 +25,21 @@ class Diary extends React.Component {
 
 		// this.handleSubmit = this.handleSubmit.bind(this);
 		// this.handleReset = this.handleReset.bind(this);
+		this.handleYearUpdate = this.handleYearUpdate.bind(this);
 	}
 
-	componentDidMount(props) {
-		api.getDiaryEntries(this.props.year)
+	componentDidMount() {
+		this.yearUpdate(this.state.year);
+	}
+
+	yearUpdate(year) {
+		this.setState(function() {
+			return {
+				year: year,
+				yearData: {}
+			}
+		});
+		api.getDiaryEntries(year)
 			.then((yearData) => {
 				this.setState(function() {
 					return {
@@ -35,6 +47,12 @@ class Diary extends React.Component {
 					}
 				})
 			});
+
+	}
+
+	handleYearUpdate(event) {
+		var year = event.target.value;
+		this.yearUpdate(year);
 	}
 
 	handleSubmit(id, username) {
@@ -62,7 +80,13 @@ class Diary extends React.Component {
 
 				<div className='row'>
 					<h1>{this.state.year}</h1>
-					<YearSelector />
+					<select 
+						onChange={this.handleYearUpdate} 
+						value={this.state.year}>
+						{this.state.years.map((year) => {
+							return <option key={year} value={year}>{year}</option>
+						})}
+					</select>
 				</div>
 				{Object.keys(this.state.yearData).map((month, index) => {
 					return(
@@ -89,25 +113,35 @@ class Diary extends React.Component {
 	}
 }
 
-module.exports = Diary;
-
-function YearSelector(props) {
-	return(
-		<select>
-			{props.years.map((year) => {
-				return <option key={year} value={year}>{year}</option>
-			})}
-		</select>
-	)
-}
-
-YearSelector.PropTypes = {
+Diary.propTypes = {
 	years: PropTypes.array.isRequired
 }
 
-YearSelector.defaultProps = {
+Diary.defaultProps = {
 	years: [1940, 1942, 1943, 1944]
 }
+
+module.exports = Diary;
+
+// function YearSelector(props) {
+// 	return(
+// 		<select 
+// 			onChange={props.onChange.bind(null, props.year)} 
+// 			value={props.year}>
+// 			{props.years.map((year) => {
+// 				return <option key={year} value={year}>{year}</option>
+// 			})}
+// 		</select>
+// 	)
+// }
+
+// YearSelector.propTypes = {
+// 	years: PropTypes.array.isRequired
+// }
+
+// YearSelector.defaultProps = {
+// 	years: [1940, 1942, 1943, 1944]
+// }
 
 // {Object.keys(days).map((text, day) => {
 // 									return(

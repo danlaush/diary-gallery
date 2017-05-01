@@ -1,14 +1,9 @@
 var axios = require('axios');
-var years = [1940,1941,1942,1943];
-		
-var dataUris = years.map((year, index) => {
-	return window.encodeURI('/data/'+year+'.json');
-});
 
 var Api = {
 	getDiaryEntries: function(requestYear) {
-
-		return axios.get(dataUris[0])
+		var getUri = window.encodeURI('/data/'+requestYear+'.json');
+		return axios.get(getUri)
 			.then((response) => {
 				return response.data;
 			})
