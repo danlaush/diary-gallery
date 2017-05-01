@@ -99,7 +99,7 @@ class Diary extends React.Component {
 										<div key={index2} className='list__entry'>
 											<div className='list__entry-text'><span><strong>{date}:</strong> {this.state.yearData[month][date]}</span></div>
 											<div className='list__entry-image'>
-												<img src={'/assets/jpg/01/'+month+'/'+date+ '.jpg'} />
+												<img src={'assets/jpg/01/'+month+'/'+date+ '.jpg'} />
 											</div>
 										</div>
 									);

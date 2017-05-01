@@ -7,7 +7,7 @@ class Home extends React.Component {
 			<div className='five-year container'>
 				<div className='five-year__image'>
 					<Link to='/diary'>
-						<img src='/assets/jpg/02/title.jpg' />
+						<img src='assets/jpg/02/title.jpg' />
 					</Link>
 				</div>
 				<div className='five-year__text'>
