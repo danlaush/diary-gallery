@@ -1,6 +1,17 @@
-# diary-gallery
-Gram Betts Diary Gallery
+# Gram Betts Diary Gallery
 
-Browse some of my grandmother's diaries from her teenage years, including transcriptions. [View Project](https://diary-gallery.firebaseapp.com/)
+Browse some of my grandmother's diaries from her teenage years, including transcriptions.
 
-Built with React & React Router, hosted on Firebase. Extension of learnings from [React Training](reacttraining.com).
+![](./docs/screenshot.png)
+
+Built with Preact and HTM. Works in modern browsers with no build step.
+
+## Getting started
+
+Use your favorite basic HTTP server from the root of the project, and you're good to go.
+
+For extra credit, make sure all routes are served by `index.html`. Otherwise, sending the browser directly to URLs like `/diary` won't work.
+
+```shell
+diary-gallery$ npx http-server --proxy http://localhost:8080?
+```
