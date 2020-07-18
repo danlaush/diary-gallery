@@ -5,7 +5,6 @@ import htm from '../lib/htm.js';
 import Router from '../lib/preact-router.js';
 import AsyncRoute from '../lib/preact-async-route.js';
 import Nav from './Nav.js'
-import Home from './Home.js'
 // Initialize htm with Preact
 const html = htm.bind(h);
 
