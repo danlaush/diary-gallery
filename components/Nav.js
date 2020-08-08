@@ -1,6 +1,6 @@
-import { h } from "../diary-gallery/lib/preact.js";
-import { Link } from "../diary-gallery/lib/preact-router.js.js";
-import htm from "../diary-gallery/lib/htm.js";
+import { h } from "../lib/preact.js";
+import { Link } from "../lib/preact-router.js.js";
+import htm from "../lib/htm.js";
 const html = htm.bind(h);
 
 const Nav = () => html`
