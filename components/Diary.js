@@ -116,7 +116,7 @@ const Diary = () => {
                     <p class="entry"><strong>${day}:</strong> ${text}</p>
                     <p>
                       <${DiaryImage}
-                        url="/assets/jpg/01/${month}/${day}.jpg"
+                        url="${path}/assets/jpg/01/${month}/${day}.jpg"
                         offset="${offset}"
                         showPercent="${showPercent}"
                       />
