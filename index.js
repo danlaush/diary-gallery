@@ -6,7 +6,7 @@ const html = htm.bind(h);
 
 // No process.env in the browser but I want
 // a way to quickly toggle prod functionality
-const isProd = true;
+const isProd = false;
 
 window.config = {
   path: isProd ? "/diary-gallery" : "",
