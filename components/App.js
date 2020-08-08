@@ -15,27 +15,24 @@ const importDiary = () => import("./Diary.js").then((m) => m.default);
 const loading = () => html`<div className="container">loading</div>`;
 
 // <${}></${}> <${} />
-const App = () => {
-  const { path } = window.config;
-  return html`
-		<${Fragment}>
-			<${Nav} />
-			<${Router} history='${createHashHistory()}'>
-				<${AsyncRoute}
-					path="${path + "/"}"
-					getComponent="${importHome}"
-					loading="${loading}" />
-				<${AsyncRoute}
-					path="${path + "/5-year"}"
-					getComponent="${importFiveYear}"
-					loading="${loading}" />
-				<${AsyncRoute}
-					path="${path + "/diary"}"
-					getComponent="${importDiary}"
-					loading="${loading}" />
-			</${Router}>
-		</${Fragment}>
-	`;
-};
+const App = () => html`
+	<${Fragment}>
+		<${Nav} />
+		<${Router} history='${createHashHistory()}'>
+			<${AsyncRoute}
+				path="/"
+				getComponent="${importHome}"
+				loading="${loading}" />
+			<${AsyncRoute}
+				path="/5-year"
+				getComponent="${importFiveYear}"
+				loading="${loading}" />
+			<${AsyncRoute}
+				path="/diary"
+				getComponent="${importDiary}"
+				loading="${loading}" />
+		</${Router}>
+	</${Fragment}>
+`;
 
 export default App;
