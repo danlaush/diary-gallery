@@ -75,8 +75,8 @@ const Diary = () => {
   // Fetch entries when the year changes
   useEffect(() => {
     if (!activeYear) return;
-    console.log("fetch activeYear", activeYear);
-    fetch(`/data/${activeYear}.json`)
+    const { path } = window.config;
+    fetch(`${path}/data/${activeYear}.json`)
       .then((res) => res.json())
       .then(setEntries);
   }, [activeYearIndex]);

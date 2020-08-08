@@ -4,6 +4,7 @@ import { h, Fragment } from "../lib/preact.js";
 import htm from "../lib/htm.js";
 import Router from "../lib/preact-router.js";
 import AsyncRoute from "../lib/preact-async-route.js";
+import { createHashHistory } from 'https://unpkg.com/history/history.production.min.js';
 import Nav from "./Nav.js";
 // Initialize htm with Preact
 const html = htm.bind(h);
@@ -19,7 +20,7 @@ const App = () => {
   return html`
 		<${Fragment}>
 			<${Nav} />
-			<${Router}>
+			<${Router} history='${createHashHistory()}'>
 				<${AsyncRoute}
 					path="${path + "/"}"
 					getComponent="${importHome}"
