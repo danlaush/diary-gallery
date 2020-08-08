@@ -8,6 +8,11 @@ import Nav from './Nav.js'
 // Initialize htm with Preact
 const html = htm.bind(h);
 
+// No process.env in the browser but I want
+// a way to quickly toggle prod functionality
+const isProd = true;
+const path = isProd ? '/diary-gallery' : '';
+
 const importHome = () => import('./Home.js').then(m => m.default)
 const importFiveYear = () => import('./FiveYear.js').then(m => m.default)
 const importDiary = () => import('./Diary.js').then(m => m.default)
@@ -20,15 +25,15 @@ const App = () => {
 			<${Nav} />
 			<${Router}>
 				<${AsyncRoute}
-					path="/"
+					path="${path + '/'}"
 					getComponent="${importHome}"
 					loading="${loading}" />
 				<${AsyncRoute}
-					path="/5-year"
+					path="${path + '/5-year'}"
 					getComponent="${importFiveYear}"
 					loading="${loading}" />
 				<${AsyncRoute}
-					path="/diary"
+					path="${path + '/diary'}"
 					getComponent="${importDiary}"
 					loading="${loading}" />
 			</${Router}>
