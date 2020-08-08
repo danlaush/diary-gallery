@@ -1,6 +1,6 @@
-import { h } from '../lib/preact.js';
+import { h } from "../lib/preact.js";
 import { Link } from "../lib/preact-router.js";
-import htm from '../lib/htm.js';
+import htm from "../lib/htm.js";
 const html = htm.bind(h);
 
 const Home = () => html`
@@ -20,6 +20,6 @@ const Home = () => html`
 			</div>
 		</div>
 	</div>
-`
+`;
 
-export default Home
+export default Home;

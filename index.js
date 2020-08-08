@@ -1,6 +1,6 @@
-import { h, render } from './lib/preact.js';
-import htm from './lib/htm.js';
-import App from './components/App.js'
+import { h, render } from "./lib/preact.js";
+import htm from "./lib/htm.js";
+import App from "./components/App.js";
 // Initialize htm with Preact
 const html = htm.bind(h);
 
@@ -9,7 +9,7 @@ const html = htm.bind(h);
 const isProd = true;
 
 window.config = {
-  path: isProd ? '/diary-gallery' : ''
+  path: isProd ? "/diary-gallery" : "",
 };
 
 render(html`<${App} />`, document.body);

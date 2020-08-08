@@ -1,5 +1,5 @@
-import { h } from '../lib/preact.js';
-import htm from '../lib/htm.js';
+import { h } from "../lib/preact.js";
+import htm from "../lib/htm.js";
 const html = htm.bind(h);
 
 const FiveYear = () => html`

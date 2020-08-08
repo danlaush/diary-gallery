@@ -21,7 +21,12 @@ const monthNames = [
 const DiaryImage = ({ url, offset, showPercent }) => {
   const [expanded, setExpanded] = useState(false);
   return html`
-    <button className="${["image-button", expanded ? "--expanded" : null].filter(Boolean).join(' ')}" onclick="${() => setExpanded(!expanded)}">
+    <button
+      className="${["image-button", expanded ? "--expanded" : null]
+        .filter(Boolean)
+        .join(" ")}"
+      onclick="${() => setExpanded(!expanded)}"
+    >
       <div
         className="image-viewport"
         style="padding-top: ${showPercent || 20}%"
@@ -31,7 +36,9 @@ const DiaryImage = ({ url, offset, showPercent }) => {
           className="image"
           style="top: -${offset || 0}%"
           loading="lazy"
-          onclick="${(e) => {if (expanded) e.stopPropagation()}}"
+          onclick="${(e) => {
+            if (expanded) e.stopPropagation();
+          }}"
         />
       </div>
       <span className="image-zoom">Zoom 🔎</span>
