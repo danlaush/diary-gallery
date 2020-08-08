@@ -56,7 +56,8 @@ const Diary = () => {
 
   // Initial fetch, returns list of available years
   useEffect(() => {
-    fetch("/data/years.json")
+    const { path } = window.config;
+    fetch(`${path}/data/years.json`)
       .then((res) => res.json())
       .then((years) => {
         setYearOptions(years);
