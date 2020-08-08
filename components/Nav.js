@@ -1,5 +1,5 @@
 import { h } from "../lib/preact.js";
-import { Link } from "../lib/preact-router.js.js";
+import { Link } from "../lib/preact-router.js";
 import htm from "../lib/htm.js";
 const html = htm.bind(h);
 
