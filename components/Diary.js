@@ -47,6 +47,7 @@ const DiaryImage = ({ url, offset, showPercent }) => {
 };
 
 const Diary = () => {
+  const { path } = window.config;
   const [entries, setEntries] = useState({});
   const [activeYearIndex, setActiveYearIndex] = useState();
   const [yearOptions, setYearOptions] = useState([]);
@@ -63,7 +64,6 @@ const Diary = () => {
 
   // Initial fetch, returns list of available years
   useEffect(() => {
-    const { path } = window.config;
     fetch(`${path}/data/years.json`)
       .then((res) => res.json())
       .then((years) => {
@@ -75,7 +75,6 @@ const Diary = () => {
   // Fetch entries when the year changes
   useEffect(() => {
     if (!activeYear) return;
-    const { path } = window.config;
     fetch(`${path}/data/${activeYear}.json`)
       .then((res) => res.json())
       .then(setEntries);
