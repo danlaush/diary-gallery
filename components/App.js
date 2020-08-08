@@ -1,4 +1,4 @@
-import "../lib/preact-debug.js";
+// import "../lib/preact-debug.js";
 import { h, Fragment } from '../lib/preact.js';
 /** @jsx h */
 import htm from '../lib/htm.js';

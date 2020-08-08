@@ -1,4 +1,4 @@
-import { h, Fragment } from "../lib/preact.js";
+import { h } from "../lib/preact.js";
 import { useState, useEffect } from "../lib/hooks.js";
 import htm from "../lib/htm.js";
 const html = htm.bind(h);
@@ -60,7 +60,7 @@ const Diary = () => {
       .then((res) => res.json())
       .then((years) => {
         setYearOptions(years);
-        setActiveYearIndex(2);
+        setActiveYearIndex(0);
       });
   }, []);
 

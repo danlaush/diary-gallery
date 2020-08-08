@@ -220,6 +220,7 @@ p {
   display: grid;
 	place-items: center;
 	border: 0;
+  cursor: zoom-out;
 }
 
 .--expanded .image-viewport .image {
@@ -230,6 +231,7 @@ p {
   display: block;
   margin: 0 auto;
   max-height: 100vh;
+  cursor: default;
 }
 
 .image {

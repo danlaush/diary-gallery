@@ -1,5 +1,4 @@
 import { h } from '../lib/preact.js';
-/** @jsx h */
 import htm from '../lib/htm.js';
 const html = htm.bind(h);
 
