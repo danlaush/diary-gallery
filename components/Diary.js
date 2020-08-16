@@ -35,7 +35,6 @@ const DiaryImage = ({ url, offset, showPercent }) => {
           src="${url}"
           className="image"
           style="top: -${offset || 0}%"
-          loading="lazy"
           onclick="${(e) => {
             if (expanded) e.stopPropagation();
           }}"
@@ -109,7 +108,7 @@ const Diary = () => {
               ${monthNames[parseInt(month) - 1]}
             </h3>
             <ul className="days">
-              ${Object.keys(entries[month]).map((day) => {
+              ${Object.keys(entries[month]).sort().map((day) => {
                 const { text, offset, showPercent } = entries[month][day];
                 return html`
                   <li className="day">
