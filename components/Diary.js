@@ -1,5 +1,5 @@
 import { h } from "../lib/preact.js";
-import { useState, useEffect } from "../lib/hooks.js";
+import { useState, useEffect, useRef } from "../lib/hooks.js";
 import htm from "../lib/htm.js";
 const html = htm.bind(h);
 
@@ -20,6 +20,22 @@ const monthNames = [
 
 const DiaryImage = ({ url, offset, showPercent }) => {
   const [expanded, setExpanded] = useState(false);
+  const [src, setSrc] = useState('');
+  const imageNode = useRef(null);
+  useEffect(() => {
+    if ("IntersectionObserver" in window) {
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setSrc(url);
+            imageObserver.unobserve(entry.target);
+          }
+        });
+      });
+
+      imageObserver.observe(imageNode.current);
+    }
+  }, []);
   return html`
     <button
       className="${["image-button", expanded ? "--expanded" : null]
@@ -32,12 +48,16 @@ const DiaryImage = ({ url, offset, showPercent }) => {
         style="padding-top: ${showPercent || 20}%"
       >
         <img
-          src="${url}"
+          src="${src}"
           className="image"
-          style="top: -${offset || 0}%"
+          style="${
+            // So IntersectionObserver can see it first
+            src && `top: -${offset || 0}%`
+          }"
           onclick="${(e) => {
             if (expanded) e.stopPropagation();
           }}"
+          ref="${imageNode}"
         />
       </div>
       <span className="image-zoom">Zoom 🔎</span>
@@ -108,21 +128,23 @@ const Diary = () => {
               ${monthNames[parseInt(month) - 1]}
             </h3>
             <ul className="days">
-              ${Object.keys(entries[month]).sort().map((day) => {
-                const { text, offset, showPercent } = entries[month][day];
-                return html`
-                  <li className="day">
-                    <p class="entry"><strong>${day}:</strong> ${text}</p>
-                    <p>
-                      <${DiaryImage}
-                        url="${path}/assets/jpg/01/${month}/${day}.jpg"
-                        offset="${offset}"
-                        showPercent="${showPercent}"
-                      />
-                    </p>
-                  </li>
-                `;
-              })}
+              ${Object.keys(entries[month])
+                .sort()
+                .map((day) => {
+                  const { text, offset, showPercent } = entries[month][day];
+                  return html`
+                    <li className="day">
+                      <p class="entry"><strong>${day}:</strong> ${text}</p>
+                      <p>
+                        <${DiaryImage}
+                          url="${path}/assets/jpg/01/${month}/${day}.jpg"
+                          offset="${offset}"
+                          showPercent="${showPercent}"
+                        />
+                      </p>
+                    </li>
+                  `;
+                })}
             </ul>
           </div>
         `

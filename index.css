@@ -30,6 +30,7 @@ a {
 
 .five-year__text a.button {
   padding: 20px;
+  display: inline-block;
 }
 
 .list__entry-image,
