@@ -9,19 +9,21 @@ const DiaryImage = ({ url, offset, showPercent }) => {
   const imageNode = useRef(null);
 
   useEffect(() => {
-    if ("IntersectionObserver" in window) {
-      const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setSrc(url);
-            imageObserver.unobserve(entry.target);
-          }
-        });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setSrc(url);
+          observer.unobserve(entry.target);
+        }
       });
+    });
 
-      imageObserver.observe(imageNode.current);
+    observer.observe(imageNode.current);
+
+    return function cleanup() {
+      observer.disconnect();
     }
-  }, []);
+  }, [url]);
 
   return html`
     <button
@@ -34,7 +36,7 @@ const DiaryImage = ({ url, offset, showPercent }) => {
         className="image-viewport"
         style="padding-top: ${showPercent || 20}%"
       >
-        <!-- Don't set top until IntersectionObserver has seen the image -->
+        <!-- Don't adjust position until IntersectionObserver has seen the image -->
         <img
           src="${src}"
           className="image"
