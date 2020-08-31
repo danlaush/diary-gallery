@@ -60,7 +60,9 @@ const DiaryMonth = ({ year, month }) => {
                 <p class="entry"><strong>${day}:</strong> ${text}</p>
                 <p>
                   <${DiaryImage}
-                    url="${path}/assets/jpg/${YEAR_TO_DIARY[year]}/${month}/${day}.jpg"
+                    diary="${YEAR_TO_DIARY[year]}"
+                    month="${month}"
+                    day="${day}"
                     offset="${offset}"
                     showPercent="${showPercent}"
                   />
