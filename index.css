@@ -207,6 +207,7 @@ p {
 .image-viewport {
   position: relative;
   overflow: hidden;
+  background: grey;
 }
 
 .--expanded .image-viewport {
@@ -249,4 +250,35 @@ p {
 
 .--expanded .image-zoom {
   display: none;
+}
+
+.form-group {
+  margin-bottom: 8px;
+}
+
+.form-group label {
+  display: inline-block;
+  width: 100px;
+}
+
+.form-group.textarea label {
+  vertical-align: top;
+}
+
+.form-group input {
+  width: 100px;
+}
+
+.form-group textarea {
+  width: 300px;
+  height: 150px;
+}
+
+.error {
+  color: red;
+}
+
+.spinner {
+  width: 25px;
+  vertical-align: middle;
 }

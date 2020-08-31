@@ -12,6 +12,7 @@ const html = htm.bind(h);
 const importHome = () => import("./Home.js").then((m) => m.default);
 const importFiveYear = () => import("./FiveYear.js").then((m) => m.default);
 const importDiary = () => import("./Diary.js").then((m) => m.default);
+const importContribute = () => import("./Contribute.js").then((m) => m.default);
 const loading = () => html`<div className="container">loading</div>`;
 
 // <${}></${}> <${} />
@@ -30,6 +31,10 @@ const App = () => html`
 			<${AsyncRoute}
 				path="/diary"
 				getComponent="${importDiary}"
+				loading="${loading}" />
+			<${AsyncRoute}
+				path="/contribute"
+				getComponent="${importContribute}"
 				loading="${loading}" />
 		</${Router}>
 	</${Fragment}>

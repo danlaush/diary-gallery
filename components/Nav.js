@@ -28,6 +28,13 @@ const Nav = () => html`
 					5-year Diary
 				</${Link}>
 			</li>
+			<li>
+				<${Link}
+					activeClassName='active'
+					href="/contribute">
+					Contribute
+				</${Link}>
+			</li>
 		</ul>
 	</div>
 `;
